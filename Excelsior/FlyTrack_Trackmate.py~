@@ -152,7 +152,7 @@ displayer =  HyperStackDisplayer(model, selectionModel, imp)
 displayer.setDisplaySettings(TrackMateModelView.KEY_SPOT_COLORING, SpotColorGeneratorPerTrackFeature(trackmate.getModel(), Spot.QUALITY))
 displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_COLORING, PerTrackFeatureColorGenerator(trackmate.getModel(), TrackIndexAnalyzer.TRACK_INDEX))
 displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_DISPLAY_MODE, TrackMateModelView.TRACK_DISPLAY_MODE_LOCAL)
-displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_DISPLAY_DEPTH, int(round(10/deltaT)))
+displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_DISPLAY_DEPTH, round(10/deltaT))
 
 # Display the displayer
 displayer.render()
