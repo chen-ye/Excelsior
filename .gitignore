@@ -47,3 +47,5 @@ plugins/
 !Preprocess.ijm
 !Open_Rack.ijm
 !*.xml
+!FlyTrack_Trackmate_GUI.py
+!FlyTrack_Trackmate.py
