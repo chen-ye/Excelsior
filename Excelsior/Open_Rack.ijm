@@ -1,6 +1,11 @@
 //Open a stack in a directory and preconfigure the properties for tracking
 
-path = getDirectory("Choose a Directory"); 
+path = getDirectory("Choose a Directory");
+
+if (path == "") {
+exit()
+}
+
 dir = File.getParent(path) + "/";
 stack = File.getName(path) + "/";
 
@@ -13,7 +18,7 @@ processStack(dir, stack);
 
 function getMedian(dir, stack)  {
 	fileList = getFileList(dir + stack);
-	medianFound = false;	
+	medianFound = false;
 	i = 0;
 	while (!medianFound) {
 		if (i < fileList.length) {
