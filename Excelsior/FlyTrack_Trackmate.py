@@ -191,25 +191,34 @@ capturer.execute(trackmate)
 # Export results
 #---------------
 
-dir = File(settings.imageFolder + '/../Tracked')
+dir = File(settings.imageFolder + '/Tracked')
 dir.mkdir()
 
 cap = WindowManager.getImage("TrackMate capture")
 if not WindowManager.checkForDuplicateName:
-	ij.save(cap, dir + '/Captured_' + settings.imageFileName + '.tif')
+	capTitle = 'Captured_' + settings.imageFileName
+	capFile = File(dir, '/' + capTitle)
+	print 'Saving capture to ' + capFile.getPath()
+	IJ.save(cap, capFile.getPath())
+	cap.setTitle(capTitle)
 else: 
+	print 'Warning: Capture not saved because there are duplicate ImagePlus names'
 	loglist.append ('Warning: Capture not saved because there are duplicate ImagePlus names')
+	model.getLogger().log('Warning: Capture not saved because there are duplicate ImagePlus names')
 
 tracks = File(dir, 'Tracked_TracksOnly.xml')
-#exporter = ExportTracksToXML(controller)
 ExportTracksToXML.export(model, settings, tracks)
 
-file = File(dir, 'Tracked.xml')
+file = File(dir, 'Tracked_Complete.xml')
+print 'Preparing to save complete xml to ' + file.getPath()
 
 logger = model.getLogger()
 writer = TmXmlWriter( file, logger )
 
 logstring = ''.join( loglist )
+print 'Appending log...'
 writer.appendLog( logstring )
+print 'Appending model...'
 writer.appendModel( trackmate.getModel() )
+print 'Appending settings...'
 writer.appendSettings( trackmate.getSettings() )
