@@ -14,7 +14,9 @@ print(stack);
 print(dir);
 
 getMedian(dir, stack);
-processStack(dir, stack);
+if (!processTiffStack(dir, stack)) {
+	processSequenceStact(dir, stack);
+}
 
 function getMedian(dir, stack)  {
 	fileList = getFileList(dir + stack);
@@ -37,13 +39,43 @@ function getMedian(dir, stack)  {
 	}
 }
 
-function processStack(dir, stack) {
+function processTiffStack(dir, stack)  {
+	fileList = getFileList(dir + stack);
+	stackFound = false;
+	i = 0;
+	while (!stackFound) {
+		if (i < fileList.length) {
+			if (startsWith(fileList[i], "Preprocessed_") && !stackFound) {
+				print("Opening tiff stack: " + fileList[i]);
+				open(dir + stack + filelist[i]);
+				processStack(dir, stack);
+				stackFound = true;
+				return true;
+			}
+			else {
+				i++;
+			}
+		} else {
+			print("Cannot find tiff for " + stack + ", searching for sequence stack");
+			stackFound = true;
+			return false;
+		}
+	}
+}
+
+function processSequenceStact(dir, stack) {
 	print("Path: " + dir + stack);
 	stackName = substring(stack, 0, lastIndexOf(stack,"/"));
 	run("Image Sequence...", "open=[" + dir + stack + "Processed] sort");
-	run("Properties...", "channels=1 slices=1 frames="+ nSlices + " unit=cm pixel_width=.0282 pixel_height=.0282 voxel_depth=1.0000 frame=[.133333 sec]");
 	selectWindow("Processed");
 	saveAs("Tiff", dir + stack + "Preprocessed_" + stackName);
+	processStack(dir, stack);
+}
+
+function processStack(dir, stack) {
+	stackName = substring(stack, 0, lastIndexOf(stack,"/"));
+	selectWindow("Preprocessed_" + stackName + ".tif");
+	run("Properties...", "channels=1 slices=1 frames="+ nSlices + " unit=cm pixel_width=.0282 pixel_height=.0282 voxel_depth=1.0000 frame=[.133333 sec]");
 }
 
 function processMedian(dir, stack, file) {
