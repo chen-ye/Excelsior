@@ -47,7 +47,7 @@ function processTiffStack(dir, stack)  {
 		if (i < fileList.length) {
 			if (startsWith(fileList[i], "Preprocessed_") && !stackFound) {
 				print("Opening tiff stack: " + fileList[i]);
-				open(dir + stack + filelist[i]);
+				open(dir + stack + fileList[i]);
 				processStack(dir, stack);
 				stackFound = true;
 				return true;
