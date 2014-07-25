@@ -39,11 +39,9 @@ function getMedian(dir, stack)  {
 
 function processStack(dir, stack) {
 	print("Path: " + dir + stack);
-	stackName = substring(stack, 0, lastIndexOf(stack,"/"));
 	run("Image Sequence...", "open=[" + dir + stack + "Processed] sort");
+	stackName = substring(stack, 0, lastIndexOf(stack,"/"));
 	run("Properties...", "channels=1 slices=1 frames="+ nSlices + " unit=cm pixel_width=.0282 pixel_height=.0282 voxel_depth=1.0000 frame=[.133333 sec]");
-	selectWindow("Processed");
-	saveAs("Tiff", dir + stack + "Preprocessed_" + stackName);
 }
 
 function processMedian(dir, stack, file) {

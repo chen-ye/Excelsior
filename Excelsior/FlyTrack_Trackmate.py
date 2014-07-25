@@ -191,14 +191,18 @@ capturer.execute(trackmate)
 # Export results
 #---------------
 
-#controller = TrackMateGUIController(trackmate)
 dir = File(settings.imageFolder + '/../Tracked')
 dir.mkdir()
+
+cap = WindowManager.getImage("TrackMate capture")
+if not WindowManager.checkForDuplicateName:
+	ij.save(cap, dir + '/Captured_' + settings.imageFileName + '.tif')
+else: 
+	loglist.append ('Warning: Capture not saved because there are duplicate ImagePlus names')
 
 tracks = File(dir, 'Tracked_TracksOnly.xml')
 #exporter = ExportTracksToXML(controller)
 ExportTracksToXML.export(model, settings, tracks)
-#exporter.execute(trackmate)
 
 file = File(dir, 'Tracked.xml')
 

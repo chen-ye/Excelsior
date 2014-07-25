@@ -126,6 +126,11 @@ settings.addTrackAnalyzer(TrackSpotFeatureAnalyzer())
 
 print(str(settings))
 
+if not WindowManager.checkForDuplicateName:
+	print 'not duplicate'
+else: 
+	loglist.append ('Warning: Capture not saved because there are duplicate ImagePlus names')
+
 #----------------------
 # Instantiate trackmate
 #----------------------
@@ -152,7 +157,7 @@ displayer =  HyperStackDisplayer(model, selectionModel, imp)
 displayer.setDisplaySettings(TrackMateModelView.KEY_SPOT_COLORING, SpotColorGeneratorPerTrackFeature(trackmate.getModel(), Spot.QUALITY))
 displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_COLORING, PerTrackFeatureColorGenerator(trackmate.getModel(), TrackIndexAnalyzer.TRACK_INDEX))
 displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_DISPLAY_MODE, TrackMateModelView.TRACK_DISPLAY_MODE_LOCAL)
-displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_DISPLAY_DEPTH, round(10/deltaT))
+displayer.setDisplaySettings(TrackMateModelView.KEY_TRACK_DISPLAY_DEPTH, int(round(10/deltaT)))
 
 # Display the displayer
 displayer.render()
@@ -191,14 +196,18 @@ capturer.execute(trackmate)
 # Export results
 #---------------
 
-#controller = TrackMateGUIController(trackmate)
 dir = File(settings.imageFolder + '/../Tracked')
 dir.mkdir()
+
+cap = WindowManager.getImage("TrackMate capture")
+if not WindowManager.checkForDuplicateName:
+	ij.save(cap, dir + '/Captured_' + settings.imageFileName + '.tif')
+else: 
+	loglist.append ('Warning: Capture not saved because there are duplicate ImagePlus names')
 
 tracks = File(dir, 'Tracked_TracksOnly.xml')
 #exporter = ExportTracksToXML(controller)
 ExportTracksToXML.export(model, settings, tracks)
-#exporter.execute(trackmate)
 
 file = File(dir, 'Tracked.xml')
 
