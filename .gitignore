@@ -40,8 +40,14 @@ Thumbs.db
 ###########
 images/
 imagesbackup/
+old_images/
 young_images/
 plugins/
+berrycam/
+misc/
+PiVision_RPi/
+stream/
+
 !Tracking/
 !VPreprocess.ijm
 !Preprocess.ijm
