@@ -16,24 +16,25 @@ function executeSubdirs(dir)  {
 			if (File.exists(dir + stack + "Tracked/Tracked_Batch_Preprocessed_" + stackName + ".tif.xml") && !overwrite) {
 				print(stack + " has already been tracked!  Skipping...");
 			} else {
-				batchTrack(dir, stack);
+				if (File.exists(dir + stack + "Processed")) {
+					batchTrack(dir, stack);
+				} else {
+					print(stack + " has not been processed yet!  Skipping...");
+				}
 			}
 		}
 		//Every 2 cycles close all windows
 		if (i % 2 == 0) {
 			run("Close All");
+			run("Collect Garbage");
 		}
 	}
+
+	print("Batch Operation Complete!");
 }
 
 function batchTrack(dir, stack)  {
-run("Open Video Rack", "choose=" + dir + stack);
-
-run("FlyTrack BatchTrackmate");
-
-run("Close All");
-
-run("Collect Garbage");
-
+	run("Open Video Rack", "choose=" + dir + stack);
+	run("FlyTrack BatchTrackmate");
 }
 
