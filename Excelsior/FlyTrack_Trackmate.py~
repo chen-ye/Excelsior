@@ -209,7 +209,7 @@ else:
 tracks = File(dir, 'Tracked_TracksOnly.xml')
 ExportTracksToXML.export(model, settings, tracks)
 
-file = File(dir, 'Tracked.xml')
+file = File(dir, 'Tracked_Complete.xml')
 print 'Preparing to save complete xml to ' + file.getPath()
 
 logger = model.getLogger()
