@@ -48,12 +48,12 @@ outputlog = open(folder_name + '/FlyCam.log', "w")
 sys.stdout = tee(stdoutsav, outputlog)
 
 with picamera.PiCamera() as camera:
-	camera.resolution = (1500, 1200)
+	camera.resolution = (1000, 1200)
 	camera.framerate = 15
 	camera.start_preview()
 	ok = raw_input("enter to start")
 	print "Starting..."
-	camera.start_recording(folder_name+'/video_'+rack+rep+'.h264',format='h264',quality=10,bitrate=19000000)
+	camera.start_recording(folder_name+'/video_'+rack+rep+'.h264',format='h264',quality=10,bitrate=10000000)
 	camera.wait_recording(seconds)
 	camera.stop_recording()
 	camera.stop_preview()
