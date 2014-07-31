@@ -1,4 +1,4 @@
-from ij import IJ, ImagePlus, ImageStack, measure, WindowManager, gui
+from ij import IJ, ImagePlus, ImageStack, measure, WindowManager
 import java.io.File as File
 import fiji.plugin.trackmate.Settings as Settings
 import fiji.plugin.trackmate.Model as Model
@@ -42,17 +42,7 @@ import fiji.plugin.trackmate.io.TmXmlWriter as TmXmlWriter
 import fiji.plugin.trackmate.features.ModelFeatureUpdater as ModelFeatureUpdater
 import fiji.plugin.trackmate.util.TMUtils as TMUtils
 
-#Ask for batchmode
-gui = gui.GenericDialog("Batch")
-gui.addCheckbox("Run in batchmode?", True)
-
-gui.showDialog()
-
-batchmode = gui.getNextBoolean()
-
-if gui.wasCanceled():
-	print 'FlyTrack canceled'
-	sys.exit(0)
+batchmode = True
 
 # Get currently selected image
 imp = WindowManager.getCurrentImage()
