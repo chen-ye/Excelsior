@@ -57,3 +57,4 @@ stream/
 !*.xml
 !FlyTrack_Trackmate_GUI.py
 !FlyTrack_Trackmate.py
+*.tmp$$
