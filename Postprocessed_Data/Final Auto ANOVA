@@ -1,0 +1,19 @@
+                        Df Sum Sq Mean Sq  F value   Pr(>F)    
+Age                      1  349.1   349.1 2125.961  < 2e-16 ***
+Nuclear                  2    9.7     4.8   29.415 1.85e-13 ***
+Mito                     3   13.9     4.6   28.243  < 2e-16 ***
+Diet                     2    3.5     1.7   10.564 2.61e-05 ***
+Age:Nuclear              2    2.4     1.2    7.294 0.000684 ***
+Age:Mito                 3    3.2     1.1    6.438 0.000238 ***
+Nuclear:Mito             6    4.3     0.7    4.322 0.000232 ***
+Age:Diet                 2    0.6     0.3    1.946 0.142891    
+Nuclear:Diet             4    3.2     0.8    4.933 0.000569 ***
+Mito:Diet                6    4.5     0.8    4.615 0.000109 ***
+Age:Nuclear:Mito         6   17.4     2.9   17.692  < 2e-16 ***
+Age:Nuclear:Diet         4    0.1     0.0    0.153 0.961770    
+Age:Mito:Diet            6    5.2     0.9    5.278 1.93e-05 ***
+Nuclear:Mito:Diet       12   15.0     1.2    7.609 3.31e-14 ***
+Age:Nuclear:Mito:Diet   12    6.9     0.6    3.502 3.40e-05 ***
+Residuals             9026 1482.3     0.2                      
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
