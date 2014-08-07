@@ -34,8 +34,8 @@ summary(velpostrim)
 
 #Restyled boxplots
 boxplot(Velo_median_cm_sec ~ Age*Nuclear*Mito, data=velpostrim, las=2, frame=T, xlab="Age.Nuclear.Mito", ylab="Climbing velocity(cm/sec)", main="Auto Climbing speed (Outliers trimmed)", col=(c("green3", "green3", "red", "red", "thistle", "thistle", "steelblue1", "steelblue1", "orchid", "orchid", "turquoise4", "turquoise4", "white", "white", "yellow", "yellow", "orange", "orange", "rosybrown1", "rosybrown1", "darkseagreen2", "darkseagreen2", "gray60", "gray60")))
-
-ggplot(velpostrim, aes(x=Nuclear, fill = Mito, color = Mito, alpha = factor(Age), y=Velo_median_cm_sec)) + ylim(0, 2.5) + geom_boxplot()
+velpostrim$Age <- factor(velpostrim$Age, c("young", "old"))
+ggplot(velpostrim, aes(x=Nuclear, fill = Mito, color = Mito, alpha = factor(Age), y=Velo_median_cm_sec)) + ylim(0, 2.5) + guides(colour = guide_legend("Mitotype"), fill = guide_legend("Mitotype")) + scale_alpha_discrete("Age", range = c(.4, .8)) + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()) + geom_boxplot()
 
 ### Manual data analyzed here
 velman <- read.csv("~/FlyLapse/Postprocessed_Data/Manual_Fly_Tracks.csv", colClasses=c(rep('factor',9), rep('numeric',4)))
@@ -62,9 +62,11 @@ boxplot(veloscaled ~ Age*Nuclear*Mito, data=velman9, las=2, frame=T, xlab="Age.N
 
 MitoNuc <- interaction(velman$Nuclear, velman$Mito, sep=" ")
 
-ggplot(velman, aes(x=Nuclear, fill = Mito, color = Mito, alpha = factor(Age), y=veloscaled)) + ylim(0, 2.5) + geom_boxplot()
+#GGPlot Boxplot - THE DEFINITIVE MANUAL PLOT
+velman$Age <- factor(velman$Age, c("young", "old"))
+ggplot(velman, aes(x=Nuclear, fill = Mito, color = Mito, alpha = factor(Age), y=veloscaled)) + ylim(0, 2.5) + guides(colour = guide_legend("Mitotype"), fill = guide_legend("Mitotype")) + scale_alpha_discrete("Age", range = c(.4, .8)) + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()) + geom_boxplot()
 
-#stack overflow answer to moving  x lable position on box plot
+#stack overflow answer to moving  x label position on box plot
 boxplot(c(1:12)~c(rep("1",6),rep("2",6)),at=c(1,2), col=c(0,"grey"),las=1,xaxt="n") 
 axis(1,at=c(1,2),adj=1,labels=c("Salix Scrub","Tall Forb")) 
 axis(1,at=c(1,2),adj=1,padj=0.5,labels=c("Salix\nScrub","Tall\nForb")) 
