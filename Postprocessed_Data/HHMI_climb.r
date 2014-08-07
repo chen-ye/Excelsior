@@ -33,8 +33,9 @@ boxplot(Velo_mean_cm_sec ~ Age*Mito, data=velpostrim)
 summary(velpostrim)
 
 #Restyled boxplots
-boxplot(Velo_median_cm_sec ~ Age*Nuclear*Mito, data=velpostrim, las=2, frame=T, xlab="Age.Nuclear.Mito", ylab="Climbing velocity(cm/sec)", main="Auto Climbing speed (Outliers trimmed)", col=(c("green3", "green3", "red", "red", "thistle", "thistle", "steelblue1", "steelblue1", "orchid", "orchid", "turquoise4", "turquoise4", "white", "white", "yellow", "yellow", "orange", "orange", "rosybrown1", "rosybrown1", "darkseagreen2", "darkseagreen2", "gray60", "gray60")))
 velpostrim$Age <- factor(velpostrim$Age, c("young", "old"))
+velpostrim$Nuclear <- factor(velpostrim$Nuclear, c("3", "15", "19"))
+
 ggplot(velpostrim, aes(x=Nuclear, fill = Mito, color = Mito, alpha = factor(Age), y=Velo_median_cm_sec)) + ylim(0, 2.5) + guides(colour = guide_legend("Mitotype"), fill = guide_legend("Mitotype")) + scale_alpha_discrete("Age", range = c(.4, .8)) + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()) + geom_boxplot()
 
 ### Manual data analyzed here
@@ -64,6 +65,8 @@ MitoNuc <- interaction(velman$Nuclear, velman$Mito, sep=" ")
 
 #GGPlot Boxplot - THE DEFINITIVE MANUAL PLOT
 velman$Age <- factor(velman$Age, c("young", "old"))
+velman$Nuclear <- factor(velman$Nuclear, c("3", "15", "19"))
+
 ggplot(velman, aes(x=Nuclear, fill = Mito, color = Mito, alpha = factor(Age), y=veloscaled)) + ylim(0, 2.5) + guides(colour = guide_legend("Mitotype"), fill = guide_legend("Mitotype")) + scale_alpha_discrete("Age", range = c(.4, .8)) + theme(legend.position="none", axis.title.x = element_blank(), axis.title.y = element_blank()) + geom_boxplot()
 
 #stack overflow answer to moving  x label position on box plot
